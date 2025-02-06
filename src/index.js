@@ -1,3 +1,5 @@
+import auth from './auth.js';
+
 export default {
 	async fetch(request, env, ctx) {
 		try {
@@ -10,5 +12,10 @@ export default {
 };
 
 async function _handle(req, env, ctx) {
-	return new Response('Hello');
+	const authResult = await auth.auth(req, env, ctx);
+	if (authResult.resp != null) {
+		return authResult.resp;
+	}
+	const username = authResult.username;
+	return new Response(`Hello:${username}`);
 }
