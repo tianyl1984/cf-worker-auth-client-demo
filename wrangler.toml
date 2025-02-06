@@ -78,7 +78,7 @@ compatibility_date = "2025-01-09"
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#kv-namespaces
 [[kv_namespaces]]
 binding = "authdata"
-id = "${AUTH_KV_ID}"
+id = "330bca4f689b415daa51c321882d97c7"
 
 # Bind an mTLS certificate. Use to present a client certificate when communicating with another service.
 # Docs: https://developers.cloudflare.com/workers/wrangler/configuration/#mtls-certificates

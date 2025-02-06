@@ -15,7 +15,5 @@ jobs:
 
       - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
-        env:
-          AUTH_KV_ID: ${{ secrets.AUTH_KV_ID }}
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
