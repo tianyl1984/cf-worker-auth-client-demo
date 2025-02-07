@@ -1,7 +1,7 @@
 
 async function auth(req, env, ctx) {
 	const result = {
-		username: null,
+		user: null,
 		resp: null
 	}
 	// 完成登录后跳转回来的地址
@@ -23,19 +23,19 @@ async function auth(req, env, ctx) {
 		return result;
 	}
 	// 读取用户信息
-	const username = await env.authdata.get(`login-username-${uid}`);
-	if (username == null) {
+	const user = await env.authdata.get(`login-user-${uid}`);
+	if (user == null) {
 		result.resp = await jump2AuthResp(req, env);
 		return result;
 	}
-	result.username = username;
+	result.user = user;
 	return result;
 }
 
 async function logoutResp(req, env) {
 	const uid = parseUidCookie(req);
 	if (uid) {
-		await env.authdata.delete(`login-username-${uid}`);
+		await env.authdata.delete(`login-user-${uid}`);
 	}
 	// 返回登录跳转
 	const html = `
@@ -60,8 +60,8 @@ async function logoutResp(req, env) {
 async function loginResp(req, env) {
 	const url = new URL(req.url);
 	const token = url.searchParams.get('token');
-	const username = await env.authdata.get(`token-${token}`);
-	if (username == null) {
+	const user = await env.authdata.get(`token-${token}`);
+	if (user == null) {
 		// 异常token
 		console.log(`token error:${token}`);
 		return jump2AuthResp(req, env);
@@ -69,7 +69,7 @@ async function loginResp(req, env) {
 	// 登录状态记录到kv
 	const uid = genUUID();
 	const maxAge = 30 * 24 * 60 * 60;
-	await env.authdata.put(`login-username-${uid}`, username, {
+	await env.authdata.put(`login-user-${uid}`, user, {
 		expirationTtl: 30 * 24 * 60 * 60,
 	});
 	// 写入cookie
