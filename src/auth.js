@@ -38,7 +38,7 @@ async function logoutResp(req, env) {
 		await env.authdata.delete(`login-username-${uid}`);
 	}
 	// 返回登录跳转
-	const html = ```
+	const html = `
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -49,7 +49,7 @@ async function logoutResp(req, env) {
 			<p>已退出，3 秒后跳转</p>
 		</body>
 	</html>
-	```
+	`
 	const resp = new Response(html, {
 		headers: { 'Content-Type': 'text/html' },
 	});
@@ -73,7 +73,7 @@ async function loginResp(req, env) {
 		expirationTtl: 30 * 24 * 60 * 60,
 	});
 	// 写入cookie
-	const html = ```
+	const html = `
 	<!DOCTYPE html>
 	<html lang="en">
 		<head>
@@ -84,7 +84,7 @@ async function loginResp(req, env) {
 			<p>登录成功，3 秒后跳转</p>
 		</body>
 	</html>
-	```
+	`
 	const resp = new Response(html, {
 		headers: { 'Content-Type': 'text/html' },
 	});
